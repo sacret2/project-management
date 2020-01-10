@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts :: header"/>
+<nav th:replace="layouts :: navbar"></nav>
+
+<body>
+    <div class="container">
+        <h4>Current Projects</h4>
+        <a th:href="@{/projects/new}" class="btn btn-primary btn-sm mb-3">
+            Add Project
+        </a>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Project Name</th>
+                <th>Project Stage</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="aProject : ${projectList}" >
+                    <td th:text="${aProject.name}"/>
+                    <td th:text="${aProject.stage}"/>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
