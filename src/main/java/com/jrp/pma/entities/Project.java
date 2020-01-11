@@ -8,7 +8,7 @@ import java.util.List;
 public class Project implements Cloneable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_seq")
     private long projectId;
     private String name;
     private String stage; //  NOTSTARTED / COMPLETED / INPROGRESS

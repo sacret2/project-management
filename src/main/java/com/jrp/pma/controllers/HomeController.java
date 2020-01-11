@@ -8,6 +8,7 @@ import com.jrp.pma.dto.EmployeeProject;
 import com.jrp.pma.dto.ProjectStageCount;
 import com.jrp.pma.entities.Project;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/")
 public class HomeController {
+    @Value("${version}")
+    private String ver;
 
     @Autowired
     ProjectRepository projRepo;
@@ -30,6 +33,8 @@ public class HomeController {
     @GetMapping("")
     public String displayHome(Model model) throws JsonProcessingException {
         Map<String, Object> map = new HashMap<>();
+
+        model.addAttribute("version", ver);
 
         List<Project> projects = projRepo.findAll();
         model.addAttribute("projectList", projects);

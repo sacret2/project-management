@@ -19,6 +19,17 @@ public class EmployeeControler {
     @Autowired
     EmployeeRepository employeeRepo;
 
+    /* // constructor injection (without @Autowired)
+    public EmployeeControler(EmployeeRepository employeeRepo) {
+        this.employeeRepo = employeeRepo;
+    }
+     */
+    /* // setter injection (needs @Autowired)
+    @Autowired
+    public setEmployeeRepo (EmployeeRepository employeeRepo) {
+        this.employeeRepo = employeeRepo;
+    }
+     */
     @GetMapping("/new")
     public String newEmployee(Model model){
         Employee anEmployee = new Employee();

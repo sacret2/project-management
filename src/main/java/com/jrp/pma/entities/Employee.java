@@ -7,7 +7,7 @@ import java.util.List;
 public class Employee implements Cloneable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_seq")
     private long employeeId;
     private String firstName;
     private String lastName;
