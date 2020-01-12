@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -48,5 +49,11 @@ public class EmployeeControler {
         List<Employee> employees = employeeRepo.findAll();
         model.addAttribute("employeeList", employees);
         return "employees/list-employees";
+    }
+
+    @GetMapping("/remove")
+    public String displayEmployeeList(@RequestParam ("employeeId") long employeeId){
+        employeeRepo.deleteById(employeeId);
+        return "redirect:/employees/";
     }
 }

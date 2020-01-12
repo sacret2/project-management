@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
     @Override
@@ -17,5 +18,12 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
             "EMPLOYEE e LEFT JOIN PROJECT_EMPLOYEE pe ON e.EMPLOYEE_ID  = pe.EMPLOYEE_ID " +
             "GROUP BY  e.first_name, e.last_name, e.email " +
             "ORDER BY 3 DESC ")
-    public List<EmployeeProject> employeeProjects();
+
+    List<EmployeeProject> employeeProjects();
+
+    @Override
+    Optional<Employee> findById(Long aLong);
+
+    @Override
+    void deleteById(Long aLong);
 }
