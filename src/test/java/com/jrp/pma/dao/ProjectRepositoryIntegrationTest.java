@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 @ContextConfiguration(classes = ProjectManagementApplication.class)
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@SqlGroup({@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = {"classpath:scheema.sql", "classpath:data.sql"}),
+@SqlGroup({@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = {"classpath:schema.sql", "classpath:data.sql"}),
 @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = {"classpath:drop.sql"})})
 public class ProjectRepositoryIntegrationTest {
     @Autowired

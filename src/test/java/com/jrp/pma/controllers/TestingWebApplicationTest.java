@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 // the application context runs without the server
 @SpringBootTest
-@WebMvcTest(HomeController.class)
+@AutoConfigureMockMvc
 public class TestingWebApplicationTest {
 
     @Autowired
