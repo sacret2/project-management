@@ -2,12 +2,14 @@ package com.jrp.pma.dao;
 
 import com.jrp.pma.dto.EmployeeProject;
 import com.jrp.pma.entities.Employee;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Profile("prod")
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
     @Override
     List<Employee> findAll();
