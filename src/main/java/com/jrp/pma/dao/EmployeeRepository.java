@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 import java.util.Optional;
 
-@Profile("prod")
+//@Profile("prod")
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
     @Override
     List<Employee> findAll();
