@@ -5,7 +5,7 @@
 <body>
     <div class="container">
         <h4>Employees</h4>
-        <a th:href="@{/employees/new}" class="btn btn-primary btn-sm mb-3">
+        <a th:href="@{/employees/new}" class="btn btn-primary btn-sm mb-3" >
             Add Employee
         </a>
         <table class="table table-bordered table-striped">
@@ -19,7 +19,7 @@
             </thead>
             <tbody>
             <tr th:each="anEmployee : ${employeeList}">
-                <td th:text="${anEmployee.employeeId}"/>>
+                <td th:text="${anEmployee.employeeId}"/>
                 <td th:text="${anEmployee.firstName}"/>
                 <td th:text="${anEmployee.lastName}"/>
                 <td th:text="${anEmployee.email}"/>
