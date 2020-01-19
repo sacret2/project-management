@@ -1,5 +1,7 @@
 package com.jrp.pma.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ public class Project implements Cloneable {
     @JoinTable(name = "project_employee",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "employee_id"))
+    @JsonIgnore
     private List<Employee> employees;
 
 //    @OneToOne(mappedBy = "theProject")
