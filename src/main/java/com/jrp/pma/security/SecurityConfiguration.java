@@ -26,11 +26,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("SELECT username, password, enabled FROM "
-                + "users WHERE username = ?")
-                .authoritiesByUsernameQuery("SELECT username, role FROM "
-                        + "authorities WHERE username = ?")
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery("SELECT username, password, enabled "
+                + "FROM user_account WHERE username = ?")
+                .authoritiesByUsernameQuery("SELECT username, role "
+                        + "FROM user_account WHERE username = ?")
                 .passwordEncoder(bCryptEncoder);
                 // OR
 //                .withDefaultSchema()
@@ -61,6 +62,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // cross-side request forgery protection - by default by Spring
         // http.csrf().disable();
-        http.headers().frameOptions().disable();
+        // http.headers().frameOptions().disable();
     }
 }
