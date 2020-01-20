@@ -33,7 +33,7 @@ public class ProjectController {
         return "projects/new-project";
     }
 
-    @PostMapping(value = "/save")   // CZEMU brak @RequestParam (bo jest już w modelu?)
+    @PostMapping(value = "/save")
     public String createProject(Project project, @RequestParam List<Long> employees, Model model ) { //, RedirectAttributes redirectAttributes){
         proService.save(project);
 

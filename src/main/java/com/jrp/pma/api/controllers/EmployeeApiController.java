@@ -3,6 +3,7 @@ package com.jrp.pma.api.controllers;
 import com.jrp.pma.dao.EmployeeRepository;
 import com.jrp.pma.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,9 @@ public class EmployeeApiController {
 
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee create(@RequestBody Employee employee){
-        return empRepo.save(employee);
+    public Employee create(@RequestBody(required = false) Employee employee){
+        return employee;
+        //return empRepo.save(employee);
     }
 
     @PutMapping(path = "/{id}", consumes = "application/json")
@@ -35,7 +37,7 @@ public class EmployeeApiController {
         return empRepo.save(employee);
     }
 
-    @PatchMapping(consumes = "application/json")
+    @PatchMapping(path = "/{id}", consumes = "application/json")
     public Employee partialUpdate(@PathVariable("id") long id, @RequestBody Employee patchEmployee){
         Employee emp = empRepo.findById(id).get();
         if(patchEmployee.getEmail() != null){
@@ -48,5 +50,15 @@ public class EmployeeApiController {
             emp.setLastName(patchEmployee.getLastName());
         }
         return empRepo.save(emp);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id){
+        try {
+            empRepo.deleteById(id);
+        } catch (EmptyResultDataAccessException emptyResExc){
+            //emptyResExc.printStackTrace();
+        }
     }
 }

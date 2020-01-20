@@ -15,7 +15,7 @@ public class Project implements Cloneable {
     private String name;
     private String stage; //  NOTSTARTED / COMPLETED / INPROGRESS
     private String description;
-    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.REFRESH,CascadeType.PERSIST},
+    @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST},
             fetch = FetchType.LAZY)
     @JoinTable(name = "project_employee",
             joinColumns = @JoinColumn(name = "project_id"),
