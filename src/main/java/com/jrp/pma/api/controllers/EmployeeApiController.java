@@ -2,8 +2,12 @@ package com.jrp.pma.api.controllers;
 
 import com.jrp.pma.dao.EmployeeRepository;
 import com.jrp.pma.entities.Employee;
+import org.hibernate.boot.model.source.spi.Sortable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,4 +66,18 @@ public class EmployeeApiController {
             //emptyResExc.printStackTrace();
         }
     }
+
+    @GetMapping(params = {"page","size", "sortBy", "desc"})
+    @ResponseStatus(HttpStatus.OK)
+    public Iterable<Employee> findPaginatedEmployees(@RequestParam("page") int page,
+                                                     @RequestParam("size") int size,
+                                                     @RequestParam("sortBy") String sortByField,
+                                                     @RequestParam("desc") Boolean desc){
+        Sort sortBy = Sort.by(sortByField);
+        if(desc)
+            sortBy = sortBy.descending();
+        Pageable pageAndSize = PageRequest.of(page,size,sortBy);
+        return empRepo.findAll(pageAndSize);
+    }
+    
 }

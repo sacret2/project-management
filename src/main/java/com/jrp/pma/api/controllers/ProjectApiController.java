@@ -37,9 +37,23 @@ public class ProjectApiController {
         return proRepo.save(project);
     }
 
-    @PatchMapping(consumes = "application/json")
+    @PatchMapping(path="/{id}", consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public Project update (@RequestBody @Valid Project project){
+    public Project update (@PathVariable("id") Long id, @RequestBody Project patchProject){
+        Project project = proRepo.findById(id).get();
+        if(project == null)
+            return project;
+
+        if(patchProject.getName() != null){
+            project.setName(patchProject.getName());
+        }
+        if(patchProject.getDescription() != null){
+            project.setDescription(patchProject.getDescription());
+        }
+        if(patchProject.getStage() != null){
+            project.setStage(patchProject.getStage());
+        }
+
         return proRepo.save(project);
     }
 

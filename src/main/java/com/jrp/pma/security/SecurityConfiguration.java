@@ -61,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().formLogin(); //.loginPage("/login-page");
 
         // cross-side request forgery protection - by default by Spring
-        //http.csrf().disable();
-        //http.headers().frameOptions().disable();
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 }
