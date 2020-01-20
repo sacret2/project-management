@@ -1,6 +1,7 @@
 package com.jrp.pma.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jrp.pma.validators.UniqueValue;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -25,7 +26,7 @@ public class Employee implements Cloneable{
 
     @NotNull
     @Email
-    @Column(unique = true) //, nullable = false)
+    @UniqueValue
     private String email;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.PERSIST},

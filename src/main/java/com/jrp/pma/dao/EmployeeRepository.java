@@ -28,4 +28,6 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
     @Override
     void deleteById(Long aLong);
+
+    Employee findByEmail(String value);
 }

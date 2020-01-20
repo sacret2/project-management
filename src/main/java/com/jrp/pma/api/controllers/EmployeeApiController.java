@@ -29,8 +29,7 @@ public class EmployeeApiController {
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     public Employee create(@RequestBody @Valid Employee employee){
-        return employee;
-        //return empRepo.save(employee);
+        return empRepo.save(employee);
     }
 
     @PutMapping(path = "/{id}", consumes = "application/json")
