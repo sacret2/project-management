@@ -3,6 +3,9 @@ package com.jrp.pma.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -11,9 +14,20 @@ public class Employee implements Cloneable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_seq")
     private long employeeId;
+
+    @NotNull
+    @Size(min=2, max=50)
     private String firstName;
+
+    @NotNull
+    @Size(min=2, max=50)
     private String lastName;
+
+    @NotNull
+    @Email
+    @Column(unique = true) //, nullable = false)
     private String email;
+
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH,CascadeType.PERSIST},
             fetch = FetchType.LAZY)
     @JoinTable(name = "project_employee",

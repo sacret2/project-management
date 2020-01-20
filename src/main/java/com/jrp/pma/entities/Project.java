@@ -3,6 +3,8 @@ package com.jrp.pma.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +14,17 @@ public class Project implements Cloneable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "project_seq")
     private long projectId;
+
+    @NotNull
+    @Size(min=1, max=300)
     private String name;
+
+    @NotNull
+    @Size(min=9, max=10)
     private String stage; //  NOTSTARTED / COMPLETED / INPROGRESS
+
     private String description;
+    
     @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST},
             fetch = FetchType.LAZY)
     @JoinTable(name = "project_employee",
