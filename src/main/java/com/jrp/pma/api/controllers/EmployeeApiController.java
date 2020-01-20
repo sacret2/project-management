@@ -63,7 +63,7 @@ public class EmployeeApiController {
         try {
             empRepo.deleteById(id);
         } catch (EmptyResultDataAccessException emptyResExc){
-            //emptyResExc.printStackTrace();
+            
         }
     }
 
@@ -79,5 +79,5 @@ public class EmployeeApiController {
         Pageable pageAndSize = PageRequest.of(page,size,sortBy);
         return empRepo.findAll(pageAndSize);
     }
-    
+
 }
