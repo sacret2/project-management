@@ -1,6 +1,7 @@
 .img{
     display: flex;
     margin: auto;
+    width: 910px;
 }
 .notfound-404{
     font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
