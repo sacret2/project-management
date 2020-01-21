@@ -1,0 +1,15 @@
+.img{
+    display: flex;
+    margin: auto;
+}
+.notfound-404{
+    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+    display: flex;
+    margin: auto;
+    width: 960px;
+}
+
+tr{
+    margin-top: 40%;
+    margin-left: 5%;
+}

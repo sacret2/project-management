@@ -1,2 +1,22 @@
-Gateway error:
-500 error
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="layouts :: header"/>
+<head th:replace="errorpages/errorLayout :: erHeader"/>
+<body>
+<nav th:replace="layouts :: navbar"></nav>
+<br/>
+<br/>
+<div class="errorContainer">
+    <div class="notfound-404">
+        <img class="img" src="img/500.png"/>
+        <div style="margin:50px;">
+            <h1>500</h1>
+            <h2>Bad Gateway</h2>
+            <p>Try refreshing your page, logging out and in again or deleting browser cookies</p>
+            <a th:href="@{/}">Go To Homepage</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

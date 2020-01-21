@@ -63,7 +63,7 @@ public class EmployeeApiController {
         try {
             empRepo.deleteById(id);
         } catch (EmptyResultDataAccessException emptyResExc){
-            
+
         }
     }
 
