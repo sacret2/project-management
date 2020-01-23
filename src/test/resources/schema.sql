@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS project_employee (
         employee_id BIGINT REFERENCES employee
 );
 
-CREATE SEQUENCE IF NOT EXISTS user_accounts_seq;
+CREATE SEQUENCE IF NOT EXISTS user_account_seq;
 
 CREATE TABLE IF NOT EXISTS user_account (
                                              user_id BIGINT NOT NULL DEFAULT nextval('user_accounts_seq') PRIMARY KEY,
