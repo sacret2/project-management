@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@SequenceGenerator(name="project_seq", initialValue=1, allocationSize=1)
 public class Project implements Cloneable {
 
     @Id

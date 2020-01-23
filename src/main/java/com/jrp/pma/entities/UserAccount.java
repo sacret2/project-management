@@ -7,11 +7,12 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@SequenceGenerator(name="user_account_seq", initialValue=1, allocationSize=1)
 public class UserAccount {
 
     @Id
     @Column(name ="user_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_accounts_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_account_seq")
     private long userId;
 
     @Column(name = "username")
@@ -20,6 +21,7 @@ public class UserAccount {
     private String email;
     private String password;
     private boolean enabled = true;
+    private String role = "ROLE_USER";
 
     public UserAccount(){
 
@@ -63,5 +65,13 @@ public class UserAccount {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

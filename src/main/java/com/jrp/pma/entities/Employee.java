@@ -10,6 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
+@SequenceGenerator(name="employee_seq", initialValue=1, allocationSize=1)
 public class Employee implements Cloneable{
 
     @Id
