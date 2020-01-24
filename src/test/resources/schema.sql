@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS project (
     project_id BIGINT NOT NULL DEFAULT nextval('project_seq') PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     stage VARCHAR(100) NOT NULL,
-    description VARCHAR(500) NOT NULL
+    description VARCHAR(4000) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS project_employee (

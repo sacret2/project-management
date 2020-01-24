@@ -24,6 +24,7 @@ public class Project implements Cloneable {
     @Size(min=9, max=10)
     private String stage; //  NOTSTARTED / COMPLETED / INPROGRESS
 
+    @Column(columnDefinition = "varchar(4000)")
     private String description;
 
     @ManyToMany(cascade = {CascadeType.DETACH,CascadeType.REFRESH, CascadeType.MERGE, CascadeType.PERSIST},
