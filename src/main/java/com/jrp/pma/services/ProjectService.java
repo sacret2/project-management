@@ -17,6 +17,10 @@ public class ProjectService {
         return this.proRepo.findAll();
     }
 
+    public Project findById(long id){
+        return this.proRepo.findById(id).get();
+    }
+
     public List<ProjectStageCount> getProjectCountsByStage(){
         return this.proRepo.getProjectCountsByStage();
     }

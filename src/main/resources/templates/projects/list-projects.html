@@ -20,11 +20,13 @@
             </thead>
             <tbody>
                 <tr th:each="aProject : ${projectList}" >
-                    <td th:text="${aProject.name}"/>
+                    <td>
+                        <a th:href="@{/projects/view(id =${aProject.projectId})}" th:text="${aProject.name}"></a>
+                    </td>
                     <td th:text="${aProject.stage}"/>
                     <td th:text="${aProject.description}"/>
                     <td>
-                        <a th:href="@{/projects/delete(projectId =${aProject.projectId})}" class="btn btn-primary"
+                        <a th:href="@{/projects/delete(id =${aProject.projectId})}" class="btn btn-primary"
                            onclick="if(!(confirm('Are you sure you want to delete this project?'))) return false">
                             Delete project
                         </a>

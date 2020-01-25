@@ -59,8 +59,17 @@ public class ProjectController {
     }
 
     @GetMapping("/delete")
-    public String removeProject(@RequestParam("projectId") Long id){
+    public String removeProject(@RequestParam("id") Long id){
         proService.deleteById(id);
         return "redirect:/projects/";
     }
+
+    @GetMapping("/view")
+    public String displayProject(@RequestParam("id") Long projectId, Model model){
+        Project project = proService.findById(projectId);
+        model.addAttribute("project", project);
+        model.addAttribute("employeeList", project.getEmployees());
+        return "projects/project";
+    }
+
 }
