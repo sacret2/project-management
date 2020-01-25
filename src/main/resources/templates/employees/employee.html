@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layouts :: header"/>
+<nav th:replace="layouts :: navbar"></nav>
+
+<body>
+<div class="container">
+    <h3>Employee view</h3>
+    <hr>
+    <br/>
+    <h4>Employee info</h4>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${employee.employeeId}"/>
+            <td th:text="${employee.firstName}"/>
+            <td th:text="${employee.lastName}"/>
+            <td th:text="${employee.email}"/>
+            <td>
+                <a th:href="@{/employees/delete(id =${employee.employeeId})}" class="btn btn-primary"
+                   onclick="if(!(confirm('Are you sure you want to delete this employee?'))) return false">
+                    Delete employee
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <h4>Projects assigned to the employee</h4>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Project Name</th>
+            <th>Project Stage</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  th:each="project : ${projectList}" >
+            <td>
+                <a th:href="@{/projects/view(id =${project.projectId})}" th:text="${project.name}"></a>
+            </td>
+            <td th:text="${project.stage}"/>
+            <td th:text="${project.description}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

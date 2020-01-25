@@ -15,53 +15,19 @@ import java.util.List;
 @Controller
 @RequestMapping("/projects")
 public class ProjectController {
+
     @Autowired
     ProjectService proService;
 
     @Autowired
     EmployeeService empService;
 
-    @Autowired
-    MyEntityRepository myEntityRepo;
-
-    @GetMapping("/new")
-    public String displayProjectForm(Model model){
-        Project aProject = new Project();
-        Iterable<Employee> employees = empService.findAll();
-        model.addAttribute("project", aProject);
-        model.addAttribute("allEmployees", employees);
-        return "projects/new-project";
-    }
-
-    @PostMapping(value = "/save")
-    public String createProject(Project project, @RequestParam List<Long> employees, Model model ) { //, RedirectAttributes redirectAttributes){
-        proService.save(project);
-
-        //dont have to do it anymore, persists, refreshes
-//        Iterable<Employee> chosenEmployees = empService.findAllById(employees);
-//
-//        for(Employee employee : chosenEmployees){
-//            employee.getProjects().add(project);
-//            empService.save(employee);
-//        }
-
-        //redirectAttributes.addFlashAttribute("project", project);
-//        MyEntity myEntity = new MyEntity(project);
-//        myEntityRepo.save(myEntity);
-        return "redirect:/projects/";
-    }
-
+    //==== View =====
     @GetMapping("/")
     public String displayProjects(Model model){
         List<Project> projectList = proService.findAll();
         model.addAttribute("projectList", projectList);
         return "projects/list-projects";
-    }
-
-    @GetMapping("/delete")
-    public String removeProject(@RequestParam("id") Long id){
-        proService.deleteById(id);
-        return "redirect:/projects/";
     }
 
     @GetMapping("/view")
@@ -71,5 +37,32 @@ public class ProjectController {
         model.addAttribute("employeeList", project.getEmployees());
         return "projects/project";
     }
+    //==== View ===== end
+
+    //==== Forms =====
+    @GetMapping("/new")
+    public String displayProjectForm(Model model){
+        Project aProject = new Project();
+        Iterable<Employee> employees = empService.findAll();
+        model.addAttribute("project", aProject);
+        model.addAttribute("allEmployees", employees);
+        return "projects/new-project";
+    }
+    //==== Forms ===== end
+
+    //==== CRUD =====
+    @PostMapping(value = "/save")
+    public String createProject(Project project, @RequestParam List<Long> employees, Model model ) {
+        proService.save(project);
+        return "redirect:/projects/";
+    }
+
+    @GetMapping("/delete")
+    public String removeProject(@RequestParam("id") Long id){
+        proService.deleteById(id);
+        return "redirect:/projects/";
+    }
+    //==== CRUD ===== end
+
 
 }

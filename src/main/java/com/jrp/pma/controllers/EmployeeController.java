@@ -18,42 +18,45 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    EmployeeService employeeService;
+    EmployeeService empService;
 
-    /* // constructor injection (without @Autowired)
-    public EmployeeController(employeeService employeeService) {
-        this.employeeService = employeeService;
+    //==== View =====
+    @GetMapping("")
+    public String displayEmployees(Model model){
+        List<Employee> employees = empService.findAll();
+        model.addAttribute("employeeList", employees);
+        return "employees/list-employees";
     }
-     */
-    /* // setter injection (needs @Autowired)
-    @Autowired
-    public setEmployeeService (employeeService employeeService) {
-        this.employeeService = employeeService;
+
+    @GetMapping("/view")
+    public String displayProject(@RequestParam("id") Long employeeId, Model model){
+        Employee employee = empService.findById(employeeId);
+        model.addAttribute("employee", employee);
+        model.addAttribute("projectList", employee.getProjects());
+        return "employees/employee";
     }
-     */
+    //==== View ===== end
+
+    //==== Forms =====
     @GetMapping("/new")
     public String newEmployee(Model model){
         Employee anEmployee = new Employee();
         model.addAttribute("employee", anEmployee);
         return "employees/new-employee";
     }
+    //==== Forms ===== end
 
+    //==== CRUD =====
     @PostMapping(value = "/save")
     public String saveEmployee(Model model, Employee employee, RedirectAttributes redirectAttributes){
-        employeeService.save(employee);
+        empService.save(employee);
         return "redirect:/employees";
     }
 
-    @GetMapping("")
-    public String displayEmployeeList(Model model){
-        List<Employee> employees = employeeService.findAll();
-        model.addAttribute("employeeList", employees);
-        return "employees/list-employees";
-    }
-
-    @GetMapping("/remove")
-    public String displayEmployeeList(@RequestParam ("employeeId") long employeeId){
-        employeeService.deleteById(employeeId);
+    @GetMapping("/delete")
+    public String displayEmployeeList(@RequestParam ("id") long employeeId){
+        empService.deleteById(employeeId);
         return "redirect:/employees/";
     }
+    //==== CRUD ===== end
 }

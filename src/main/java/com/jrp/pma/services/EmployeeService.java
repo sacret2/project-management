@@ -28,4 +28,8 @@ public class EmployeeService {
     public void deleteById(Long id){
         this.empRepo.deleteById(id);
     }
+
+    public Employee findById(Long id){
+        return this.empRepo.findById(id).get();
+    }
 }

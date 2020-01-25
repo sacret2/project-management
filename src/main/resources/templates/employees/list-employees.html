@@ -19,7 +19,9 @@
             </thead>
             <tbody>
             <tr th:each="anEmployee : ${employeeList}">
-                <td th:text="${anEmployee.employeeId}"/>
+                <td>
+                    <a th:href="@{/employees/view(id =${anEmployee.employeeId})}" th:text="${anEmployee.employeeId}"></a>
+                </td>
                 <td th:text="${anEmployee.firstName}"/>
                 <td th:text="${anEmployee.lastName}"/>
                 <td th:text="${anEmployee.email}"/>
