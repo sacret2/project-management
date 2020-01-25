@@ -24,4 +24,8 @@ public class ProjectService {
     public void save(Project project) {
         this.proRepo.save(project);
     }
+
+    public void deleteById(Long id) {
+        this.proRepo.deleteById(id);
+    }
 }

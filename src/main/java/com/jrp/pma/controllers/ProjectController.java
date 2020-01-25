@@ -57,4 +57,10 @@ public class ProjectController {
         model.addAttribute("projectList", projectList);
         return "projects/list-projects";
     }
+
+    @GetMapping("/delete")
+    public String removeProject(@RequestParam("projectId") Long id){
+        proService.deleteById(id);
+        return "redirect:/projects/";
+    }
 }
