@@ -55,6 +55,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/employees/new").hasRole("ADMIN")
                 .antMatchers("/projects/save").hasRole("ADMIN")
                 .antMatchers("/employees/save").hasRole("ADMIN")
+                .antMatchers("/employees/delete/**").hasRole("ADMIN")
+                .antMatchers("/projects/delete/**").hasRole("ADMIN")
                 //.antMatchers("/h2-console/**").permitAll()
                 //.antMatchers("/").authenticated() // access of the home page only for authenticated
                 .antMatchers("/", "/**").permitAll() // access of the home page only for authenticated
