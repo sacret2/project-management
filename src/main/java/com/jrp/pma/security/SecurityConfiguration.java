@@ -1,5 +1,6 @@
 package com.jrp.pma.security;
 
+import com.jrp.pma.services.PmaUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +9,8 @@ import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,16 +27,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     BCryptPasswordEncoder bCryptEncoder;
 
+    @Autowired
+    PmaUserDetailsService userDetailsService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery("SELECT username, password, enabled "
-                + "FROM user_account WHERE username = ?")
-                .authoritiesByUsernameQuery("SELECT username, role "
-                        + "FROM user_account WHERE username = ?")
-                .passwordEncoder(bCryptEncoder);
-                // OR
+        auth.userDetailsService(userDetailsService);
+
+        //// OR
+
+//        auth.jdbcAuthentication()
+//                .dataSource(dataSource)
+//                .usersByUsernameQuery("SELECT username, password, enabled "
+//                + "FROM user_account WHERE username = ?")
+//                .authoritiesByUsernameQuery("SELECT username, role "
+//                        + "FROM user_account WHERE username = ?")
+//                .passwordEncoder(bCryptEncoder);
+
+        //// OR
+
 //                .withDefaultSchema()
 //                .withUser("myuser")
 //                    .password("pass")
