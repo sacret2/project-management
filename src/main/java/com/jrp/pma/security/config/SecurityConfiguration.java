@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -15,18 +16,21 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    DataSource dataSource; // spring knows you are using an embedded db and wires it
-
-    @Autowired
-    BCryptPasswordEncoder bCryptEncoder;
-
-    @Autowired
-    PmaUserDetailsService pmaUserDetailsService;
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(pmaUserDetailsService);
+        auth.ldapAuthentication()
+                .userDnPatterns("uid={0},ou=people")  // uid is checked that's why {0}
+                .groupSearchBase("ou=groups")
+                .contextSource()
+                .url("ldap://localhost:8389/dc=springframework,dc=org")
+                .and()
+                .passwordCompare()
+                .passwordEncoder(new BCryptPasswordEncoder())
+                .passwordAttribute("userPassword");
+
+        //// OR
+
+//        auth.userDetailsService(pmaUserDetailsService);
 
         //// OR
 
@@ -57,15 +61,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
-                .antMatchers("/projects/new").hasRole("ADMIN")
-                .antMatchers("/employees/new").hasRole("ADMIN")
-                .antMatchers("/projects/save").hasRole("ADMIN")
-                .antMatchers("/employees/save").hasRole("ADMIN")
-                .antMatchers("/employees/delete/**").hasRole("ADMIN")
-                .antMatchers("/projects/delete/**").hasRole("ADMIN")
-                //.antMatchers("/h2-console/**").permitAll()
-                //.antMatchers("/").authenticated() // access of the home page only for authenticated
-                .antMatchers("/", "/**").permitAll() // access of the home page only for authenticated
+                .anyRequest().fullyAuthenticated()
+//                .antMatchers("/projects/new").hasRole("ADMIN")
+//                .antMatchers("/employees/new").hasRole("ADMIN")
+//                .antMatchers("/projects/save").hasRole("ADMIN")
+//                .antMatchers("/employees/save").hasRole("ADMIN")
+//                .antMatchers("/employees/delete/**").hasRole("ADMIN")
+//                .antMatchers("/projects/delete/**").hasRole("ADMIN")
+//                //.antMatchers("/h2-console/**").permitAll()
+//                //.antMatchers("/").authenticated() // access of the home page only for authenticated
+//                .antMatchers("/", "/**").permitAll() // access of the home page for all
                 .and().formLogin(); //.loginPage("/login-page");
 
         // cross-side request forgery protection - by default by Spring
