@@ -9,11 +9,19 @@ import com.jrp.pma.dto.ProjectStageCount;
 import com.jrp.pma.entities.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +39,9 @@ public class HomeController {
     EmployeeRepository emplRepo;
 
     @GetMapping("")
-    public String displayHome(Model model) throws JsonProcessingException {
+    public String displayHome(Model model, Principal user) throws JsonProcessingException {
+        model.addAttribute("loggedin", user != null);
+
         Map<String, Object> map = new HashMap<>();
 
         model.addAttribute("version", ver);

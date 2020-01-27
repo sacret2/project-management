@@ -1,0 +1,10 @@
+.login_panel{
+    position: absolute;
+    right: 10px;
+}
+.visible-item {
+    display: flex;
+}
+.hidden-item{
+    display: none;
+}

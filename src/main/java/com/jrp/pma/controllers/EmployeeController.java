@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -22,14 +23,16 @@ public class EmployeeController {
 
     //==== View =====
     @GetMapping("")
-    public String displayEmployees(Model model){
+    public String displayEmployees(Model model, Principal user){
+        model.addAttribute("loggedin", user != null);
         List<Employee> employees = empService.findAll();
         model.addAttribute("employeeList", employees);
         return "employees/list-employees";
     }
 
     @GetMapping("/view")
-    public String displayProject(@RequestParam("id") Long employeeId, Model model){
+    public String displayProject(@RequestParam("id") Long employeeId, Model model, Principal user){
+        model.addAttribute("loggedin", user != null);
         Employee employee = empService.findById(employeeId);
         model.addAttribute("employee", employee);
         model.addAttribute("projectList", employee.getProjects());
@@ -39,7 +42,8 @@ public class EmployeeController {
 
     //==== Forms =====
     @GetMapping("/new")
-    public String newEmployee(Model model){
+    public String newEmployee(Model model, Principal user){
+        model.addAttribute("loggedin", user != null);
         Employee anEmployee = new Employee();
         model.addAttribute("employee", anEmployee);
         return "employees/new-employee";

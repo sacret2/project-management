@@ -16,17 +16,23 @@ import javax.sql.DataSource;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    DataSource dataSource; // spring knows you are using an embedded db and wires it
-
-    @Autowired
-    BCryptPasswordEncoder bCryptEncoder;
-
-    @Autowired
     PmaUserDetailsService pmaUserDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(pmaUserDetailsService);
+
+        //// OR
+
+//        auth.ldapAuthentication()
+//                .userDnPatterns("uid={0},ou=people")  // uid is checked that's why {0}
+//                .groupSearchBase("ou=groups")
+//                .contextSource()
+//                .url("ldap://localhost:8389/dc=springframework,dc=org")
+//                .and()
+//                .passwordCompare()
+//                .passwordEncoder(new BCryptPasswordEncoder())
+//                .passwordAttribute("userPassword");
 
         //// OR
 
@@ -56,6 +62,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
+        //http.headers().contentSecurityPolicy("script-src 'self' https://trustedscripts.example.com; object-src https://trustedplugins.example.com; report-uri /csp-report-endpoint/");
+
         http.authorizeRequests()
                 .antMatchers("/projects/new").hasRole("ADMIN")
                 .antMatchers("/employees/new").hasRole("ADMIN")
@@ -66,7 +74,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //.antMatchers("/h2-console/**").permitAll()
                 //.antMatchers("/").authenticated() // access of the home page only for authenticated
                 .antMatchers("/", "/**").permitAll() // access of the home page only for authenticated
-                .and().formLogin(); //.loginPage("/login-page");
+                .and().formLogin()
+                .loginPage("/login");
 
         // cross-side request forgery protection - by default by Spring
         //http.csrf().disable();

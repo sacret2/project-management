@@ -12,6 +12,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/formatting.css}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <link th:href="@{/css/home.css}" rel="stylesheet" />
 </head>
 <body>
     <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -38,6 +39,16 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+                <li class="nav-item">
+                    <div class="login_panel">
+                        <a th:href="@{/login}" class="btn btn-primary btn-sm mb-3" th:classappend="${loggedin} ? 'hidden-item' : 'visible-item'" >
+                            Login
+                        </a>
+                        <a th:href="@{/logout}" class="btn btn-primary btn-sm mb-3" th:classappend="${loggedin} ? 'visible-item' : 'hidden-item'" >
+                            Logout
+                        </a>
+                    </div>
                 </li>
             </ul>
         </div>

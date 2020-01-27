@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -24,14 +25,16 @@ public class ProjectController {
 
     //==== View =====
     @GetMapping("/")
-    public String displayProjects(Model model){
+    public String displayProjects(Model model, Principal user){
+        model.addAttribute("loggedin", user != null);
         List<Project> projectList = proService.findAll();
         model.addAttribute("projectList", projectList);
         return "projects/list-projects";
     }
 
     @GetMapping("/view")
-    public String displayProject(@RequestParam("id") Long projectId, Model model){
+    public String displayProject(@RequestParam("id") Long projectId, Model model, Principal user){
+        model.addAttribute("loggedin", user != null);
         Project project = proService.findById(projectId);
         model.addAttribute("project", project);
         model.addAttribute("employeeList", project.getEmployees());
@@ -41,7 +44,8 @@ public class ProjectController {
 
     //==== Forms =====
     @GetMapping("/new")
-    public String displayProjectForm(Model model){
+    public String displayProjectForm(Model model, Principal user){
+        model.addAttribute("loggedin", user != null);
         Project aProject = new Project();
         Iterable<Employee> employees = empService.findAll();
         model.addAttribute("project", aProject);
