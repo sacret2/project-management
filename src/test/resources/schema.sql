@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS user_account (
                                              username varchar(255) NOT NULL,
                                              email varchar(255) NOT NULL,
                                              password varchar(255) NOT NULL,
-                                             role varchar(255),
+                                             roles varchar(255),
                                              enabled boolean NOT NULL
 );
+

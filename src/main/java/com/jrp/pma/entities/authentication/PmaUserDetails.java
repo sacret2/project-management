@@ -1,32 +1,36 @@
-package com.jrp.pma.security;
+package com.jrp.pma.entities.authentication;
 
-import com.jrp.pma.entities.UserAccount;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class PmaUserDetails implements UserDetails {
 
     private String userName;
     private String email;
     private String password;
-    private boolean enabled = true;
-    private String role = "ROLE_USER";
+    private boolean enabled;
+    private List<GrantedAuthority> authorities;
 
     public PmaUserDetails(UserAccount userAccount){
         this.userName = userAccount.getUserName();
         this.email = userAccount.getEmail();
         this.password = userAccount.getPassword();
         this.enabled = userAccount.isEnabled();
-        this.role = userAccount.getRole();
+        this.authorities = Arrays.stream(userAccount.getRoles().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        System.out.println("user details for "+userName);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new LinkedList<GrantedAuthority>(){};
+        return this.authorities;
     }
 
     @Override
@@ -41,21 +45,25 @@ public class PmaUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return this.isAccountNonExpired();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.isAccountNonLocked();
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return this.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return this.isEnabled();
+        return enabled;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

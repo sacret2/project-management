@@ -1,6 +1,6 @@
-package com.jrp.pma.security;
+package com.jrp.pma.security.config;
 
-import com.jrp.pma.services.PmaUserDetailsService;
+import com.jrp.pma.services.authentication.PmaUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

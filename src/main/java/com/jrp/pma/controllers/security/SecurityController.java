@@ -1,7 +1,7 @@
-package com.jrp.pma.security;
+package com.jrp.pma.controllers.security;
 
 import com.jrp.pma.dao.UserAccountRepository;
-import com.jrp.pma.entities.UserAccount;
+import com.jrp.pma.entities.authentication.UserAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;

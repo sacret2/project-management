@@ -1,10 +1,6 @@
-package com.jrp.pma.entities;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+package com.jrp.pma.entities.authentication;
 
 import javax.persistence.*;
-import java.util.Collection;
 
 @Entity
 @SequenceGenerator(name="user_account_seq", initialValue=1, allocationSize=1)
@@ -21,7 +17,7 @@ public class UserAccount {
     private String email;
     private String password;
     private boolean enabled = true;
-    private String role = "ROLE_USER";
+    private String roles = "ROLE_USER";
 
     public UserAccount(){
 
@@ -67,11 +63,11 @@ public class UserAccount {
         this.enabled = enabled;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }
