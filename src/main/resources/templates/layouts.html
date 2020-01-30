@@ -5,7 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Project added</title>
+    <title>Project IO</title>
+
+    <script src="/css/jquery-3.4.1.min.js"></script>
+
+    <!--Boostrap jQuery-->
+    <script src="/css/4.4.1/js/bootstrap.min.js"></script>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -37,20 +42,15 @@
                 <li class="nav-item">
                     <a th:href="@{/projects/new}" class="nav-link" href="#">Add project</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-                <li class="nav-item">
-                    <div class="login_panel">
-                        <a th:href="@{/login}" class="btn btn-primary btn-sm mb-3" th:classappend="${loggedin} ? 'hidden-item' : 'visible-item'" >
-                            Login
-                        </a>
-                        <a th:href="@{/logout}" class="btn btn-primary btn-sm mb-3" th:classappend="${loggedin} ? 'visible-item' : 'hidden-item'" >
-                            Logout
-                        </a>
-                    </div>
-                </li>
             </ul>
+            <div class="login_panel">
+                <a th:href="@{/login}" class="btn btn-primary btn-sm mb-3" th:classappend="${loggedin} ? 'hidden-item' : 'visible-item'" >
+                    Login
+                </a>
+                <a th:href="@{/logout}" class="btn btn-primary btn-sm mb-3" th:classappend="${loggedin} ? 'visible-item' : 'hidden-item'" >
+                    Logout
+                </a>
+            </div>
         </div>
     </nav>
 </body>

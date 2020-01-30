@@ -1,6 +1,7 @@
 .login_panel{
     position: absolute;
-    right: 10px;
+    right: 95px;
+    top: 12px;
 }
 .visible-item {
     display: flex;
