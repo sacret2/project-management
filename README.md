@@ -13,12 +13,11 @@ password: Px324
 feel free to inject your own data.
   
 #### Some URLs:  
-creating a regular user:  
+for creating a regular user:  
 http://ec2-18-195-169-134.eu-central-1.compute.amazonaws.com:8080/register  
-  
 
-log in and log out:  
-http://ec2-18-195-169-134.eu-central-1.compute.amazonaws.com:8080/login  
-http://ec2-18-195-169-134.eu-central-1.compute.amazonaws.com:8080/logout
-
-
+## Views
+<img src="src\main\resources\static\img\readme\home.png"> 
+<img src="src\main\resources\static\img\readme\employees.png"> 
+<img src="src\main\resources\static\img\readme\project.png"> 
+<img src="src\main\resources\static\img\readme\projects.png"> 
